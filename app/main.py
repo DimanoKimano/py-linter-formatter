@@ -1,4 +1,6 @@
-def format_linter_error(error: dict) -> dict:
+from typing import Dict, Any, List
+
+def format_linter_error(error: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "line": error.get("line"),
         "column": error.get("column"),
@@ -7,7 +9,7 @@ def format_linter_error(error: dict) -> dict:
     }
 
 
-def format_single_linter_file(file_path: str, errors: list) -> dict:
+def format_single_linter_file(file_path: str, errors: List[Dict[str, Any]]) -> Dict[str, Any]:
     return {
         "path": file_path,
         "status": "failed" if errors else "passed",
@@ -15,7 +17,7 @@ def format_single_linter_file(file_path: str, errors: list) -> dict:
     }
 
 
-def format_linter_report(report: dict) -> list:
+def format_linter_report(report: Dict[str, List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
     return [
         format_single_linter_file(file_path, errors)
         for file_path, errors in report.items()
